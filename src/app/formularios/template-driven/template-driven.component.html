@@ -1,0 +1,23 @@
+<section class="container-form">
+  <h2>Template Driven</h2>
+
+  <form #formTD="ngForm" (ngSubmit)="onEnviar(formTD)">
+
+    <!-- NOME -->
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Nome</label>
+      <input type="nome" class="form-control" id="exampleFormControlInput1"
+      name="nome" [(ngModel)]="usuario.nome">
+    </div>
+
+    <!-- EMAIL -->
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Email</label>
+      <input type="email" class="form-control" placeholder="name@example.com"
+      name="email" [(ngModel)]="usuario.email">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</section>
+
