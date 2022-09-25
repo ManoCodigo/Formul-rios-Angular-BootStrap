@@ -7,17 +7,22 @@
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Nome</label>
       <input type="nome" class="form-control" id="exampleFormControlInput1"
-      name="nome" [(ngModel)]="usuario.nome">
+      name="nome" [(ngModel)]="usuario.nome" required #nome="ngModel">
+      <span *ngIf="!nome.valid && nome.touched" class="required">*Nome Obrigatório</span>
     </div>
 
     <!-- EMAIL -->
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">Email</label>
       <input type="email" class="form-control" placeholder="name@example.com"
-      name="email" [(ngModel)]="usuario.email">
+      name="email" [(ngModel)]="usuario.email" required email #email="ngModel">
+      <span *ngIf="!email.valid && email.touched" class="required">*Email Obrigatório</span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!formTD.valid">Enviar</button>
+
+    <form-debugger [form]="formTD"></form-debugger>
   </form>
+
 </section>
 

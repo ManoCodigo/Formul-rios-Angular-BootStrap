@@ -1,0 +1,8 @@
+.ng-invalid.ng-touched:not(form) {
+  border: 1px solid #ff0000;
+}
+
+.required {
+  font-size: 11px;
+  color: #ff0000;
+}

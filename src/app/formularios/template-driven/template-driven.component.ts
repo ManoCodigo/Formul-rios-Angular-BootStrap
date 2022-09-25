@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TemplateDrivenComponent implements OnInit {
 
   usuario: any = {
-    nome: 'Lucas',
+    nome: '',
     email: 'lucas@email.com'
   }
 
@@ -19,7 +19,7 @@ export class TemplateDrivenComponent implements OnInit {
 
   public onEnviar(form: any) {
     console.log(form)
-    console.log(this.usuario)
+    //console.log(this.usuario)
 
   }
 
