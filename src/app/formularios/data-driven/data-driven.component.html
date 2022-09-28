@@ -1,22 +1,86 @@
 <section class="container-form">
   <h2>Data Driven</h2>
 
-  <form>
+  <form [formGroup]="formDD" (submit)="onSubmit()">
 
-    <!-- NOME -->
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Nome</label>
-      <input type="nome" class="form-control" id="exampleFormControlInput1"
-      name="nome" >
+    <div class="row">
+      <!-- NOME -->
+      <div class="col mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="nome">
+        <span *ngIf="validacoes('nome')" class="required">*Nome Obrigatório</span>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="col mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" placeholder="name@example.com" formControlName="email">
+        <span *ngIf="validacoes('email')" class="required">*Email Obrigatório</span>
+      </div>
     </div>
 
-    <!-- EMAIL -->
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">Email</label>
-      <input type="email" class="form-control" placeholder="name@example.com"
-      name="email">
+    <div formGroupName="endereco" class="endereco">
+
+      <div class="row">
+        <!-- CEP -->
+        <div class="col mb-3">
+          <label class="form-label">CEP</label>
+          <input type="text" class="form-control" formControlName="cep"
+          (keyup)="consultaCEP()">
+          <span *ngIf="validacoes('endereco.cep')" class="required">*CEP Obrigatório</span>
+          <span *ngIf="naoEncontrado && !validacoes('endereco.cep')" class="warning">CEP não encontrado</span>
+        </div>
+
+        <!-- NUMERO -->
+        <div class="col mb-3">
+          <label class="form-label">Número</label>
+          <input type="text" class="form-control" formControlName="numero">
+          <span *ngIf="validacoes('endereco.numero')" class="required">*Número Obrigatório</span>
+        </div>
+
+        <!-- RUA -->
+        <div class="col-6 mb-3">
+          <label class="form-label">Rua</label>
+          <input type="text" class="form-control" formControlName="rua">
+          <span *ngIf="validacoes('endereco.rua')" class="required">*Rua Obrigatório</span>
+        </div>
+      </div>
+
+      <!-- COMPLEMENTO -->
+      <div class="col mb-3">
+        <label class="form-label">Complemento</label>
+        <input type="text" class="form-control" formControlName="complemento">
+      </div>
+
+      <div class="row">
+        <!-- BAIRRO -->
+        <div class="col mb-3">
+          <label class="form-label">Bairro</label>
+          <input type="text" class="form-control" formControlName="bairro">
+          <span *ngIf="validacoes('endereco.bairro')" class="required">*Bairro Obrigatório</span>
+        </div>
+
+        <!-- CIDADE -->
+        <div class="col colmb-3">
+          <label class="form-label">Cidade</label>
+          <input type="text" class="form-control" formControlName="cidade">
+          <span *ngIf="validacoes('endereco.cidade')" class="required">*Cidade Obrigatório</span>
+        </div>
+
+        <!-- ESTADO -->
+        <div class="col mb-3">
+          <label class="form-label">Estado</label>
+          <input type="text" class="form-control" formControlName="estado">
+          <span *ngIf="validacoes('endereco.estado')" class="required">*Estado Obrigatório</span>
+        </div>
+      </div>
+
     </div>
+
 
     <button type="submit" class="btn btn-primary">Enviar</button>
+    <button (click)="resetForm()" class="btn" >Reset</button>
   </form>
+
+  <form-debugger [form]="formDD"></form-debugger>
 </section>
