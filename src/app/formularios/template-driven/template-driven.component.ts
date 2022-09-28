@@ -1,5 +1,10 @@
+import { Subscription } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ConsultaCepService } from 'src/app/service/consulta-cep.service';
+import { IEstadosBr } from 'src/app/model/i-estados-br';
+import { DropdownService } from 'src/app/service/dropdown.service';
 
 @Component({
   selector: 'app-template-driven',
@@ -9,12 +14,18 @@ import { Component, OnInit } from '@angular/core';
 export class TemplateDrivenComponent implements OnInit {
 
   public naoEncontrado: boolean = false
+  public estadoBr!: IEstadosBr[]
+  public inscricao_EstadoBr!: Subscription
 
   constructor(
-    private http: HttpClient
+    private consultaCepService: ConsultaCepService,
+    private dropdownService: DropdownService
   ) { }
 
   ngOnInit(): void {
+    this.inscricao_EstadoBr = this.dropdownService.getEstadosBr().subscribe(
+      (dados: IEstadosBr[]) => this.estadoBr = dados
+    )
   }
 
   public onEnviar(form: any) {
@@ -26,30 +37,11 @@ export class TemplateDrivenComponent implements OnInit {
     return !compa.valid && compa.touched
   }
 
-  consultaCep(cep: any, form: any) {
-    //https://viacep.com.br/
-    //Nova variável "cep" somente com dígitos.
-    cep = cep.replace(/\D/g, '');
-
-    //Verifica se campo cep possui valor informado.
-    if (cep == "") {
-      this.resetaEndereco(form)
-    }
-    if (cep != "") {
-      //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
-
-      //Valida o formato do CEP.
-      if(validacep.test(cep)) {
-        this.http.get(`https://viacep.com.br/ws/${cep}/json`)
-        .subscribe( res => {
-          this.populaDados(res, form)
-          this.naoEncontrado = false
-        })
-      } else {
-        this.naoEncontrado = true
-        this.resetaEndereco(form)
-      }
+  onConsultaCEP(cep: string, form: any) {
+    if (cep != null && cep !== '') {
+      this.consultaCepService.consultaCEP(cep)?.subscribe(
+        (dados: any) => this.populaDados(dados, form)
+      )
     }
   }
 
@@ -91,6 +83,11 @@ export class TemplateDrivenComponent implements OnInit {
         estado: null,
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.inscricao_EstadoBr.unsubscribe()
+    console.log('Destruido Form Tamplate');
   }
 
 }

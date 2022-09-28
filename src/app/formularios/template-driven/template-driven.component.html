@@ -30,7 +30,7 @@
         <!-- CEP -->
         <div class="col mb-3">
           <label class="form-label">CEP</label>
-          <input type="text" class="form-control" name="cep" ngModel required #cep="ngModel" (keyup)="consultaCep(cep.value, formTD)">
+          <input type="text" class="form-control" name="cep" ngModel required #cep="ngModel" (keyup)="onConsultaCEP(cep.value, formTD)">
           <span *ngIf="validacoes(cep)" class="required">*CEP Obrigatório</span>
           <span *ngIf="naoEncontrado && !validacoes(cep)" class="warning">CEP não encontrado</span>
         </div>
@@ -80,7 +80,11 @@
         <!-- ESTADO -->
         <div class="col mb-3">
           <label class="form-label">Estado</label>
-          <input type="text" class="form-control" name="estado" ngModel required #estado="ngModel">
+          <select type="text" class="form-control" name="estado" ngModel required #estado="ngModel">
+            <option *ngFor="let item of estadoBr" [value]="item.sigla">
+              {{ item.nome }} - {{ item.sigla }}
+            </option>
+          </select>
           <span *ngIf="validacoes(estado)" class="required">*Estado Obrigatório</span>
         </div>
 

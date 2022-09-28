@@ -26,7 +26,7 @@
         <div class="col mb-3">
           <label class="form-label">CEP</label>
           <input type="text" class="form-control" formControlName="cep"
-          (keyup)="consultaCEP()">
+          (keyup)="onConsultaCEP()">
           <span *ngIf="validacoes('endereco.cep')" class="required">*CEP Obrigatório</span>
           <span *ngIf="naoEncontrado && !validacoes('endereco.cep')" class="warning">CEP não encontrado</span>
         </div>
@@ -70,16 +70,45 @@
         <!-- ESTADO -->
         <div class="col mb-3">
           <label class="form-label">Estado</label>
-          <input type="text" class="form-control" formControlName="estado">
+          <select type="text" class="form-control" formControlName="estado">
+            <option *ngFor="let item of estadoBr | async" [value]="item.sigla">
+              {{ item.nome }} - {{ item.sigla }}
+            </option>
+          </select>
           <span *ngIf="validacoes('endereco.estado')" class="required">*Estado Obrigatório</span>
         </div>
       </div>
 
     </div>
 
+      <!-- CARGO -->
+      <div class="col mb-3">
+        <label class="form-label">Cargo</label>
+        <select type="text" class="form-control" formControlName="cargos"
+        [compareWith]="compararCargos">
+          <option *ngFor="let item of cargos" [ngValue]="item">
+            {{ item.desc }}
+          </option>
+        </select>
+        <span *ngIf="validacoes('cargo')" class="required">*Cargo Obrigatório</span>
+      </div>
+
+      <!-- TECNOLOGIAS -->
+      <div class="col mb-3">
+        <label class="form-label">Tecnologias</label>
+        <select type="text" class="form-control" formControlName="tecnologias" multiple>
+          <option *ngFor="let item of tecnologias" [value]="item.nome">
+            {{ item.desc }}
+          </option>
+        </select>
+        <span *ngIf="validacoes('cargo')" class="required">*Cargo Obrigatório</span>
+      </div>
+
+
 
     <button type="submit" class="btn btn-primary">Enviar</button>
     <button (click)="resetForm()" class="btn" >Reset</button>
+    <button (click)="setCargo()" class="btn" >Cargo</button>
   </form>
 
   <form-debugger [form]="formDD"></form-debugger>
