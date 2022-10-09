@@ -1,4 +1,4 @@
-<section class="container-form">
+<section class="container">
   <h2>Template Driven</h2>
 
   <form #formTD="ngForm" (ngSubmit)="onEnviar(formTD)">
@@ -6,7 +6,7 @@
     <div class="row">
 
       <!-- NOME -->
-      <div class="col mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Nome</label>
         <input type="text" class="form-control" id="exampleFormControlInput1"
         name="nome" ngModel required #nome="ngModel">
@@ -14,7 +14,7 @@
       </div>
 
       <!-- EMAIL -->
-      <div class="col mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" placeholder="name@example.com"
         name="email" ngModel required email #email="ngModel">
@@ -23,12 +23,11 @@
     </div>
 
     <div ngModelGroup="endereco" class="endereco">
-
       <!-- LINHA 2 -->
       <div class="row">
 
         <!-- CEP -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-3 mb-3">
           <label class="form-label">CEP</label>
           <input type="text" class="form-control" name="cep" ngModel required #cep="ngModel" (keyup)="onConsultaCEP(cep.value, formTD)">
           <span *ngIf="validacoes(cep)" class="required">*CEP Obrigatório</span>
@@ -36,49 +35,47 @@
         </div>
 
         <!-- NUMERO -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-3 mb-3">
           <label class="form-label">Número</label>
           <input type="text" class="form-control" name="numero" ngModel required #numero="ngModel">
           <span *ngIf="validacoes(numero)" class="required">*Número Obrigatório</span>
         </div>
 
-        <!-- COMPLEMENTO -->
-        <div class="col-6 mb-3">
-          <label class="form-label">Complemento</label>
-          <input type="text" class="form-control" name="complemento" ngModel #complemento="ngModel">
-        </div>
-      </div>
-
-      <!-- LINHA 3 -->
-      <div class="row">
-
         <!-- RUA -->
-        <div class="col mb-3">
+        <div class="col-sm-12 col-md-6 mb-3">
           <label class="form-label">Rua</label>
           <input type="text" class="form-control" name="rua" ngModel required #rua="ngModel">
           <span *ngIf="validacoes(rua)" class="required">*Rua Obrigatório</span>
         </div>
       </div>
 
+      <!-- LINHA 3 -->
+      <div class="row">
+        <!-- COMPLEMENTO -->
+        <div class="col mb-3">
+          <label class="form-label">Complemento</label>
+          <input type="text" class="form-control" name="complemento" ngModel #complemento="ngModel">
+        </div>
+      </div>
+
       <!-- LINHA 4 -->
       <div class="row">
-
-        <!-- RUA -->
-        <div class="col mb-3">
+        <!-- BAIRRO -->
+        <div class="col-sm-6 col-md-4 mb-3">
           <label class="form-label">Bairro</label>
           <input type="text" class="form-control" name="bairro" ngModel required #bairro="ngModel">
           <span *ngIf="validacoes(bairro)" class="required">*Bairro Obrigatório</span>
         </div>
 
         <!-- CIDADE -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-4 mb-3">
           <label class="form-label">Cidade</label>
           <input type="text" class="form-control" name="cidade" ngModel required #cidade="ngModel">
           <span *ngIf="validacoes(cidade)" class="required">*Cidade Obrigatório</span>
         </div>
 
         <!-- ESTADO -->
-        <div class="col mb-3">
+        <div class="col-sm-12 col-md-4 mb-3">
           <label class="form-label">Estado</label>
           <select type="text" class="form-control" name="estado" ngModel required #estado="ngModel">
             <option *ngFor="let item of estadoBr" [value]="item.sigla">

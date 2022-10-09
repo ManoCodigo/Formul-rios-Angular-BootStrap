@@ -20,18 +20,16 @@ export class DropdownService {
 
   getCargos() {
     return [
-      {nome: 'DevJ', nivel: 'Junior', desc: 'Dev Jr'},
-      {nome: 'DevP', nivel: 'Pleno', desc: 'Dev Pl'},
-      {nome: 'DevS', nivel: 'Senior', desc: 'Dev Sr'}
+      {nome: 'DevJ', nivel: 'Junior', desc: 'Desenvolvedor Júnior'},
+      {nome: 'DevP', nivel: 'Pleno', desc: 'Desenvolvedor Pleno'},
+      {nome: 'DevS', nivel: 'Senior', desc: 'Desenvolvedor Sênior'}
     ]
   }
 
-  getTecnologias() {
+  getNewlestter() {
     return [
-      {nome: 'java', desc: 'Java'},
-      {nome: 'javascript', desc: 'JavaScript'},
-      {nome: 'php', desc: 'PHP'},
-      {nome: 'ruby', desc: 'Ruby'}
+      {valor: 'sim', desc: 'Sim'},
+      {valor: 'nao', desc: 'Não'}
     ]
   }
 }

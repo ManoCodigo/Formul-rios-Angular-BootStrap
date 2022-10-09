@@ -17,7 +17,7 @@ export class DataDrivenComponent implements OnInit {
   public estadoBr!: Observable<IEstadosBr[]>
 
   public cargos!: any[]
-  public tecnologias!: any[]
+  public newsletterOp!: any[]
 
   constructor(
     private builder: FormBuilder,
@@ -26,17 +26,7 @@ export class DataDrivenComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // OUTRA FORMA
-    // this.formDD = new FormGroup({
-    //   nome: new FormControl(null),
-    //   email: new FormControl(null),
-    //   endereco: new FormGroup({
-    //     cep: new FormControl(null),
-    //     numero: new FormControl(null),
-    //     rua: new FormControl(null),
-    //     emcomplementoail: new FormControl(null),
-    //   })
-    // })
+    // this.formDD.reset()
 
     this.formDD = this.builder.group({
       nome: [null, Validators.required],
@@ -51,33 +41,24 @@ export class DataDrivenComponent implements OnInit {
         estado: [null, Validators.required],
       }),
       cargos: [null],
-      tecnologias: [null],
+      termos: [null],
+      newsletter: [null],
     })
 
     this.estadoBr = this.dropdownService.getEstadosBr()
     this.cargos = this.dropdownService.getCargos()
-    this.tecnologias = this.dropdownService.getTecnologias()
-  }
-
-  setCargo() {
-    const cargo = {nome: 'DevP', nivel: 'Pleno', desc: 'Dev Pl'}
-
-    this.formDD.get('cargos')?.setValue(cargo)
-  }
-
-  compararCargos(ob1: any, ob2: any) {
-    return ob1 && ob2 ? (ob1.nome === ob2.nome && ob1.nivel === ob2.nivel) : ob1 === ob2
+    this.newsletterOp = this.dropdownService.getNewlestter()
   }
 
   onSubmit() {
     if (this.formDD.valid) {
-      console.log(this.formDD)
+      console.log(this.formDD.value)
       // this.resetForm()
     } else {
       this.verificaValidacoesForm(this.formDD)
     }
   }
-
+  // 60748-540
   onConsultaCEP() {
     const cep = this.formDD.get('endereco.cep')?.value
 

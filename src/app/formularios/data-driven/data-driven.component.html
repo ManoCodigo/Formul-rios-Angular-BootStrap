@@ -1,18 +1,18 @@
-<section class="container-form">
+<section class="container">
   <h2>Data Driven</h2>
 
   <form [formGroup]="formDD" (submit)="onSubmit()">
 
     <div class="row">
       <!-- NOME -->
-      <div class="col mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Nome</label>
         <input type="text" class="form-control" formControlName="nome">
         <span *ngIf="validacoes('nome')" class="required">*Nome Obrigatório</span>
       </div>
 
       <!-- EMAIL -->
-      <div class="col mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" placeholder="name@example.com" formControlName="email">
         <span *ngIf="validacoes('email')" class="required">*Email Obrigatório</span>
@@ -20,10 +20,9 @@
     </div>
 
     <div formGroupName="endereco" class="endereco">
-
       <div class="row">
         <!-- CEP -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-3 mb-3">
           <label class="form-label">CEP</label>
           <input type="text" class="form-control" formControlName="cep"
           (keyup)="onConsultaCEP()">
@@ -32,14 +31,14 @@
         </div>
 
         <!-- NUMERO -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-3 mb-3">
           <label class="form-label">Número</label>
           <input type="text" class="form-control" formControlName="numero">
           <span *ngIf="validacoes('endereco.numero')" class="required">*Número Obrigatório</span>
         </div>
 
         <!-- RUA -->
-        <div class="col-6 mb-3">
+        <div class="col-sm-12 col-md-6 mb-3">
           <label class="form-label">Rua</label>
           <input type="text" class="form-control" formControlName="rua">
           <span *ngIf="validacoes('endereco.rua')" class="required">*Rua Obrigatório</span>
@@ -47,28 +46,28 @@
       </div>
 
       <!-- COMPLEMENTO -->
-      <div class="col mb-3">
+      <div class="col col-md-12 mb-3">
         <label class="form-label">Complemento</label>
         <input type="text" class="form-control" formControlName="complemento">
       </div>
 
       <div class="row">
         <!-- BAIRRO -->
-        <div class="col mb-3">
+        <div class="col-sm-12 col-md-4 mb-3">
           <label class="form-label">Bairro</label>
           <input type="text" class="form-control" formControlName="bairro">
           <span *ngIf="validacoes('endereco.bairro')" class="required">*Bairro Obrigatório</span>
         </div>
 
         <!-- CIDADE -->
-        <div class="col colmb-3">
+        <div class="col-sm-6 col-md-4 colmb-3">
           <label class="form-label">Cidade</label>
           <input type="text" class="form-control" formControlName="cidade">
           <span *ngIf="validacoes('endereco.cidade')" class="required">*Cidade Obrigatório</span>
         </div>
 
         <!-- ESTADO -->
-        <div class="col mb-3">
+        <div class="col-sm-6 col-md-4 mb-3">
           <label class="form-label">Estado</label>
           <select type="text" class="form-control" formControlName="estado">
             <option *ngFor="let item of estadoBr | async" [value]="item.sigla">
@@ -78,14 +77,13 @@
           <span *ngIf="validacoes('endereco.estado')" class="required">*Estado Obrigatório</span>
         </div>
       </div>
-
     </div>
 
+    <div class="row">
       <!-- CARGO -->
-      <div class="col mb-3">
+      <div class="col-sm-12 col-md-4 mb-3">
         <label class="form-label">Cargo</label>
-        <select type="text" class="form-control" formControlName="cargos"
-        [compareWith]="compararCargos">
+        <select type="text" class="form-control" formControlName="cargos">
           <option *ngFor="let item of cargos" [ngValue]="item">
             {{ item.desc }}
           </option>
@@ -93,23 +91,34 @@
         <span *ngIf="validacoes('cargo')" class="required">*Cargo Obrigatório</span>
       </div>
 
-      <!-- TECNOLOGIAS -->
-      <div class="col mb-3">
-        <label class="form-label">Tecnologias</label>
-        <select type="text" class="form-control" formControlName="tecnologias" multiple>
-          <option *ngFor="let item of tecnologias" [value]="item.nome">
+      <!-- NEWSLETTER -->
+      <div class="col-sm-6 col-md-4 mb-3">
+        <label class="form-label">Newsletter</label>
+        <div class="row" *ngFor="let item of newsletterOp">
+          <label class="radio-inline">
+            <input type="radio" [value]="item.valor" formControlName="newsletter" id="news">
             {{ item.desc }}
-          </option>
-        </select>
-        <span *ngIf="validacoes('cargo')" class="required">*Cargo Obrigatório</span>
+          </label>
+        </div>
       </div>
 
+      <!-- TERMOS -->
+      <div class="col-sm-6  col-md-4 mb-3">
+        <label class="form-label">Termos</label>
+        <div class="row checkbox">
+          <label class="checkbox-inline">
+            <input type="checkbox" formControlName="termos">
+            Aceito Termos
+          </label>
+        </div>
+        <span
+        *ngIf="formDD.get('termos')?.invalid || formDD.get('termos')?.pristine" class="required">*Aceite os termos</span>
+      </div>
+    </div>
 
 
     <button type="submit" class="btn btn-primary">Enviar</button>
     <button (click)="resetForm()" class="btn" >Reset</button>
-    <button (click)="setCargo()" class="btn" >Cargo</button>
   </form>
-
   <form-debugger [form]="formDD"></form-debugger>
 </section>
