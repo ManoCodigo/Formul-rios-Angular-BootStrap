@@ -13,7 +13,6 @@ import { DropdownService } from 'src/app/service/dropdown.service';
 export class DataDrivenComponent implements OnInit {
 
   public formDD!: FormGroup;
-  public naoEncontrado: boolean = false
   public estadoBr!: Observable<IEstadosBr[]>
 
   public cargos!: any[]
@@ -25,12 +24,20 @@ export class DataDrivenComponent implements OnInit {
     private consultaCepService: ConsultaCepService,
   ) { }
 
-  ngOnInit(): void {
-    // this.formDD.reset()
 
+  ngOnInit(): void {
+    this.formulario()
+
+    this.estadoBr = this.dropdownService.getEstadosBr()
+    this.cargos = this.dropdownService.getCargos()
+    this.newsletterOp = this.dropdownService.getNewlestter()
+  }
+
+  formulario() {
     this.formDD = this.builder.group({
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
+      telefone: [null, Validators.required],
       endereco: this.builder.group({
         cep: [null, Validators.required],
         numero: [null, Validators.required],
@@ -40,32 +47,30 @@ export class DataDrivenComponent implements OnInit {
         cidade: [null, Validators.required],
         estado: [null, Validators.required],
       }),
-      cargos: [null],
-      termos: [null],
-      newsletter: [null],
+      cargos: [null, Validators.required],
+      newsletter: ['sim'],
+      termos: [null, Validators.required],
     })
-
-    this.estadoBr = this.dropdownService.getEstadosBr()
-    this.cargos = this.dropdownService.getCargos()
-    this.newsletterOp = this.dropdownService.getNewlestter()
   }
 
   onSubmit() {
     if (this.formDD.valid) {
       console.log(this.formDD.value)
-      // this.resetForm()
+      this.resetForm()
     } else {
       this.verificaValidacoesForm(this.formDD)
     }
   }
-  // 60748-540
+
   onConsultaCEP() {
     const cep = this.formDD.get('endereco.cep')?.value
-
+    this.resetaEndereco()
     if (cep != null && cep !== '') {
+
       this.consultaCepService.consultaCEP(cep)?.subscribe(
         (dados: any) => this.populaDados(dados)
-      )
+
+        )
     }
   }
 
@@ -79,9 +84,6 @@ export class DataDrivenComponent implements OnInit {
     })
   }
 
-  resetForm() {
-    this.formDD.reset()
-  }
 
   validacoes(campo: any) {
     return this.formDD.get(campo)?.invalid && this.formDD.get(campo)?.touched
@@ -100,9 +102,15 @@ export class DataDrivenComponent implements OnInit {
   })
   }
 
+  resetForm() {
+    this.formDD.reset()
+  }
+
   resetaEndereco() {
+    // this.formDD.get('endereco')?.reset()
     this.formDD.patchValue({
       endereco: {
+        numero: null,
         complemento: null,
         rua: null,
         bairro: null,

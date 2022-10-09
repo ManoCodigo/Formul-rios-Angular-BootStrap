@@ -22,10 +22,9 @@ export class ConsultaCepService {
       const validacep = /^[0-9]{8}$/;
       //Valida o formato do CEP.
       if(validacep.test(cep)) {
-       return this.http.get(`https://viacep.com.br/ws/${cep}/json`)
+       return this.http.get<string | boolean>(`https://viacep.com.br/ws/${cep}/json`)
       }
     }
-    return console.log('Error na busca do CEP | Melhorar como antes');
-    // return of({})
+    return null
   }
 }

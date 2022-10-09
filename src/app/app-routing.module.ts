@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DataDrivenComponent } from './formularios/data-driven/data-driven.component';
 import { TemplateDrivenComponent } from './formularios/template-driven/template-driven.component';
+import { FormsDeactivateGuard } from '../app/guards/form-deactivate.guard'
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'data-drive',
-    component: DataDrivenComponent
+    component: DataDrivenComponent,
+    canDeactivate: [FormsDeactivateGuard]
   },
   {
     path: '',

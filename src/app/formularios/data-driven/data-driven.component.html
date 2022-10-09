@@ -3,19 +3,26 @@
 
   <form [formGroup]="formDD" (submit)="onSubmit()">
 
-    <div class="row">
-      <!-- NOME -->
-      <div class="col-sm-12 col-md-6 mb-3">
-        <label class="form-label">Nome</label>
-        <input type="text" class="form-control" formControlName="nome">
-        <span *ngIf="validacoes('nome')" class="required">*Nome Obrigatório</span>
-      </div>
+    <!-- NOME -->
+    <div class="col-sm-12 col-md-12 mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" formControlName="nome">
+      <span *ngIf="validacoes('nome')" class="required">*Nome Obrigatório</span>
+    </div>
 
+    <div class="row">
       <!-- EMAIL -->
-      <div class="col-sm-12 col-md-6 mb-3">
+      <div class="col-sm-6 col-md-6 mb-3">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" placeholder="name@example.com" formControlName="email">
         <span *ngIf="validacoes('email')" class="required">*Email Obrigatório</span>
+      </div>
+
+      <!-- TELEFONE -->
+      <div class="col-sm-6 col-md-6 mb-3">
+        <label class="form-label">Telefone</label>
+        <input type="text" class="form-control" placeholder="(00) 90000-0000" formControlName="telefone" mask="(00) 00000-0000">
+        <span *ngIf="validacoes('telefone')" class="required">*Telefone Obrigatório</span>
       </div>
     </div>
 
@@ -25,9 +32,8 @@
         <div class="col-sm-6 col-md-3 mb-3">
           <label class="form-label">CEP</label>
           <input type="text" class="form-control" formControlName="cep"
-          (keyup)="onConsultaCEP()">
+          (keyup)="onConsultaCEP()" mask="00000-000">
           <span *ngIf="validacoes('endereco.cep')" class="required">*CEP Obrigatório</span>
-          <span *ngIf="naoEncontrado && !validacoes('endereco.cep')" class="warning">CEP não encontrado</span>
         </div>
 
         <!-- NUMERO -->
@@ -88,15 +94,16 @@
             {{ item.desc }}
           </option>
         </select>
-        <span *ngIf="validacoes('cargo')" class="required">*Cargo Obrigatório</span>
+        <span *ngIf="validacoes('cargos')" class="required">*Cargo Obrigatório</span>
       </div>
 
       <!-- NEWSLETTER -->
       <div class="col-sm-6 col-md-4 mb-3">
         <label class="form-label">Newsletter</label>
+        <p>Você deseja receber em primeira mão novidades, ofertas, promoções e eventos de nossa organização?</p>
         <div class="row" *ngFor="let item of newsletterOp">
           <label class="radio-inline">
-            <input type="radio" [value]="item.valor" formControlName="newsletter" id="news">
+            <input type="radio" [value]="item.valor" formControlName="newsletter" id="news" checked>
             {{ item.desc }}
           </label>
         </div>
@@ -107,6 +114,7 @@
         <label class="form-label">Termos</label>
         <div class="row checkbox">
           <label class="checkbox-inline">
+            <p>TERMO DE ACEITE. Declaramos, para os devidos fins, que concordamos com o pagamento da taxa de publicação... VER MAIS</p>
             <input type="checkbox" formControlName="termos">
             Aceito Termos
           </label>
@@ -117,8 +125,9 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
-    <button (click)="resetForm()" class="btn" >Reset</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formDD.invalid">Enviar</button>
+    <button (click)="resetForm()" class="btn btn-secondary"
+    [disabled]="formDD.pristine">Reset</button>
   </form>
   <form-debugger [form]="formDD"></form-debugger>
 </section>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,10 @@ import { FormDebuggerComponent } from './form-debugger/form-debugger.component';
     TooltipModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

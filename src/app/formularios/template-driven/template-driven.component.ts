@@ -13,7 +13,6 @@ import { DropdownService } from 'src/app/service/dropdown.service';
 })
 export class TemplateDrivenComponent implements OnInit {
 
-  public naoEncontrado: boolean = false
   public estadoBr!: IEstadosBr[]
   public inscricao_EstadoBr!: Subscription
 
@@ -87,7 +86,6 @@ export class TemplateDrivenComponent implements OnInit {
 
   ngOnDestroy() {
     this.inscricao_EstadoBr.unsubscribe()
-    console.log('Destruido Form Tamplate');
   }
 
 }
