@@ -6,6 +6,11 @@ import { FormsDeactivateGuard } from '../app/guards/form-deactivate.guard'
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'data-drive',
+    pathMatch: 'full'
+  },
+  {
     path: 'template-drive',
     component: TemplateDrivenComponent
   },
@@ -15,9 +20,8 @@ const routes: Routes = [
     canDeactivate: [FormsDeactivateGuard]
   },
   {
-    path: '',
-    redirectTo: 'template-drive',
-    pathMatch: 'full'
+    path: '**',
+    redirectTo: ''
   }
 ];
 
