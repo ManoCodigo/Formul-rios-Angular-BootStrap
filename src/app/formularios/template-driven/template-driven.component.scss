@@ -1,17 +1,1 @@
-.ng-invalid.ng-touched:not(form) {
-  border: 1px solid #ff0000;
-}
-
-.endereco {
-  border: none !important;
-}
-
-.required {
-  font-size: 11px;
-  color: #ff0000;
-}
-
-.warning {
-  font-size: 11px;
-  color: gray;
-}
+@import '../../Sass/form-padrao.scss'

@@ -11,13 +11,15 @@ import { TemplateDrivenComponent } from './formularios/template-driven/template-
 import { DataDrivenComponent } from './formularios/data-driven/data-driven.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormDebuggerComponent } from './form-debugger/form-debugger.component';
+import { CadastroContatoComponent } from './formularios/cadastro-contato/cadastro-contato.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateDrivenComponent,
     DataDrivenComponent,
-    FormDebuggerComponent
+    FormDebuggerComponent,
+    CadastroContatoComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { FormDebuggerComponent } from './form-debugger/form-debugger.component';
     HttpClientModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot({
-      dropSpecialCharacters: true
+      dropSpecialCharacters: false
     })
   ],
   providers: [],

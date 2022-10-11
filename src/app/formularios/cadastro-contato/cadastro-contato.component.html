@@ -1,0 +1,193 @@
+<section class="container">
+  <h2>Cadastro de pessoas</h2>
+
+  <form [formGroup]="cadastroContato" (submit)="onCadastrar()">
+
+    <div class="row">
+      <!-- NOME -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="nome">
+        <span *ngIf="onValidacoes('nome')" class="required">*Nome Obrigatório</span>
+      </div>
+
+      <!-- TELEFONE -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Telefone</label>
+        <input type="text" class="form-control" formControlName="telefone"
+        prefix="+55" mask=" (00) 00000-0000">
+        <span *ngIf="onValidacoes('telefone')" class="required">*Telefone Obrigatório</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- EMAIL -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email">
+        <span *ngIf="onValidacoes('email')" class="required">*Email Obrigatório</span>
+      </div>
+
+      <!-- CONFIRMAR EMAIL -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Confirmar Email</label>
+        <input type="email" class="form-control" formControlName="confirmarEmail">
+        <span *ngIf="onValidacoes('confirmarEmail')" class="required">
+          *Confirmar Email Obrigatório
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- DATA DE NASCIMENTO -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Data de nascimento</label>
+        <input type="text" class="form-control" formControlName="dataNasc"
+        mask="d0/M0/0000">
+        <span *ngIf="onValidacoes('dataNasc')" class="required">
+          *Data de nascimento Obrigatório
+        </span>
+      </div>
+
+      <!-- CPF -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">CPF</label>
+        <input type="text" class="form-control" formControlName="cpf"
+        mask="000.000.000-00">
+        <span *ngIf="onValidacoes('cpf')" class="required">
+          *CPF Obrigatório
+        </span>
+      </div>
+
+      <!-- ESTADO CIVIL -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Estado civil</label>
+        <select type="text" class="form-control" formControlName="estadoCivil">
+          <option *ngFor="let item of estadoCivil" [value]="item.valor">
+            {{ item.desc }}
+          </option>
+        </select>
+        <span *ngIf="onValidacoes('estadoCivil')" class="required">
+          *Estado civil Obrigatório
+        </span>
+      </div>
+    </div>
+
+    <div formGroupName="endereco" class="endereco">
+      <div class="row">
+        <!-- CEP -->
+        <div class="col-sm-6 col-md-3 mb-3">
+          <label class="form-label">CEP</label>
+          <input type="text" class="form-control" formControlName="cep"
+          (keyup)="onConsultaCEP()" mask="00000-000">
+          <span *ngIf="onValidacoes('endereco.cep')" class="required">*CEP Obrigatório</span>
+        </div>
+
+        <!-- NUMERO -->
+        <div class="col-sm-6 col-md-3 mb-3">
+          <label class="form-label">Número</label>
+          <input type="text" class="form-control" formControlName="numero">
+          <span *ngIf="onValidacoes('endereco.numero')" class="required">*Número Obrigatório</span>
+        </div>
+
+        <!-- RUA -->
+        <div class="col-sm-12 col-md-6 mb-3">
+          <label class="form-label">Rua</label>
+          <input type="text" class="form-control" formControlName="rua">
+          <span *ngIf="onValidacoes('endereco.rua')" class="required">*Rua Obrigatório</span>
+        </div>
+      </div>
+
+      <!-- COMPLEMENTO -->
+      <div class="col col-md-12 mb-3">
+        <label class="form-label">Complemento</label>
+        <input type="text" class="form-control" formControlName="complemento">
+      </div>
+
+      <div class="row">
+        <!-- BAIRRO -->
+        <div class="col-sm-12 col-md-4 mb-3">
+          <label class="form-label">Bairro</label>
+          <input type="text" class="form-control" formControlName="bairro">
+          <span *ngIf="onValidacoes('endereco.bairro')" class="required">*Bairro Obrigatório</span>
+        </div>
+
+        <!-- CIDADE -->
+        <div class="col-sm-6 col-md-4 colmb-3">
+          <label class="form-label">Cidade</label>
+          <input type="text" class="form-control" formControlName="cidade">
+          <span *ngIf="onValidacoes('endereco.cidade')" class="required">*Cidade Obrigatório</span>
+        </div>
+
+        <!-- ESTADO -->
+        <div class="col-sm-6 col-md-4 mb-3">
+          <label class="form-label">Estado</label>
+          <select type="text" class="form-control" formControlName="estado">
+            <option *ngFor="let item of estadoBr | async" [value]="item.sigla">
+              {{ item.nome }} - {{ item.sigla }}
+            </option>
+          </select>
+          <span *ngIf="onValidacoes('endereco.estado')" class="required">*Estado Obrigatório</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- ESCOLARIDADE -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Escolaridade</label>
+        <select type="text" class="form-control" formControlName="escolaridade">
+          <option *ngFor="let item of escolaridade" [value]="item.valor">
+            {{ item.desc }}
+          </option>
+        </select>
+        <span *ngIf="onValidacoes('escolaridade')" class="required">
+          *Escolaridade Obrigatório
+        </span>
+      </div>
+
+      <!-- PRENTENÇÃO SALARIAL -->
+      <div class="col-sm-12 col-md-12 mb-3">
+        <label class="form-label">Pretenção salarial</label>
+        <input type="text" class="form-control" formControlName="prentSalarial"
+        prefix="R$" mask="separator" thousandSeparator=".">
+        <span *ngIf="onValidacoes('prentSalarial')" class="required">
+          *Pretenção salarial Obrigatório
+        </span>
+      </div>
+    </div>
+
+    <!-- MARCAR REUNIÃO -->
+    <div class="col-sm-12 col-md-12 mb-3">
+      <label class="form-label">Qual melhor horário para entrar em contato com você?</label>
+      <input type="text" class="form-control" formControlName="marcarReuniao"
+      mask="Hh:m0" placeholder="00:00 á 23:59">
+      <span *ngIf="onValidacoes('marcarReuniao')" class="required">
+        *Reunião Obrigatório
+      </span>
+    </div>
+
+    <!-- TERMOS -->
+    <div class="col-sm-12  col-md-12 mb-3">
+      <label class="form-label">Termos</label>
+      <div class="row checkbox">
+        <label class="checkbox-inline">
+          <p>TERMO DE ACEITE. Esse formulário é apenas para fins de desmonstração. Os dados inseridos não serão levados á lugar nenhum, mas apareceram no Console do navegador.</p>
+          <input type="checkbox" formControlName="termos">
+          Aceitar Termos
+        </label>
+      </div>
+      <span
+      *ngIf="cadastroContato.get('termos')?.invalid || cadastroContato.get('termos')?.pristine" class="required">*Aceite os termos</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="cadastroContato.invalid">
+      Enviar
+    </button>
+    <button (click)="onResetForm()" class="btn btn-secondary"
+    [disabled]="cadastroContato.pristine">
+    Reset
+  </button>
+    <form-debugger [form]="cadastroContato"></form-debugger>
+  </form>
+</section>

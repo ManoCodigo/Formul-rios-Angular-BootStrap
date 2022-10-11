@@ -32,4 +32,27 @@ export class DropdownService {
       {valor: 'nao', desc: 'Não'}
     ]
   }
+
+  getEstadoCivil() {
+    return [
+      {valor: 'solteiros', desc: 'Solteiro'},
+      {valor: 'casado', desc: 'Casado'},
+      {valor: 'deparado', desc: 'Separado'},
+      {valor: 'divorciado', desc: 'Divorciado'},
+      {valor: 'viuvo', desc: 'Viúvo'}
+    ]
+  }
+
+  getEscolaridade() {
+    return [
+      {valor: 'fundamental-incompleto', desc: 'Fundamental - Incompleto'},
+      {valor: 'fundamental-completo', desc: 'Fundamental - Completo'},
+      {valor: 'medio-incompleto', desc: 'Médio - Incompleto'},
+      {valor: 'medio-completo', desc: 'Médio - Completo'},
+      {valor: 'superior-incompleto', desc: 'Superior - Incompleto'},
+      {valor: 'superior-Completo', desc: 'Superior - Completo'},
+      {valor: 'pos-graduação-Incompleto', desc: 'Pós-graduação - Incompleto'},
+      {valor: 'pos-graduação-completo', desc: 'Pós-graduação - Completo'},
+    ]
+  }
 }
