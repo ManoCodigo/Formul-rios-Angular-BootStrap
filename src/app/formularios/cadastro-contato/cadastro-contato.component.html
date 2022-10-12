@@ -5,14 +5,14 @@
 
     <div class="row">
       <!-- NOME -->
-      <div class="col-sm-12 col-md-12 mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Nome</label>
         <input type="text" class="form-control" formControlName="nome">
         <span *ngIf="onValidacoes('nome')" class="required">*Nome Obrigatório</span>
       </div>
 
       <!-- TELEFONE -->
-      <div class="col-sm-12 col-md-12 mb-3">
+      <div class="col-sm-12 col-md-6 mb-3">
         <label class="form-label">Telefone</label>
         <input type="text" class="form-control" formControlName="telefone"
         prefix="+55" mask=" (00) 00000-0000">
@@ -40,7 +40,7 @@
 
     <div class="row">
       <!-- DATA DE NASCIMENTO -->
-      <div class="col-sm-12 col-md-12 mb-3">
+      <div class="col-sm-6 col-md-4 mb-3">
         <label class="form-label">Data de nascimento</label>
         <input type="text" class="form-control" formControlName="dataNasc"
         mask="d0/M0/0000">
@@ -50,17 +50,22 @@
       </div>
 
       <!-- CPF -->
-      <div class="col-sm-12 col-md-12 mb-3">
+      <div class="col-sm-6 col-md-4 mb-3">
         <label class="form-label">CPF</label>
         <input type="text" class="form-control" formControlName="cpf"
         mask="000.000.000-00">
-        <span *ngIf="onValidacoes('cpf')" class="required">
+        <span *ngIf="onValidacoes('cpf') && !cadastroContato.get('cpf')?.getError('cpfNotValid')" class="required">
           *CPF Obrigatório
+        </span>
+        <span
+        *ngIf="cadastroContato.get('cpf')?.getError('cpfNotValid')"
+        class="warning">
+          O CPF não é válido.
         </span>
       </div>
 
       <!-- ESTADO CIVIL -->
-      <div class="col-sm-12 col-md-12 mb-3">
+      <div class="col-sm-12 col-md-4 mb-3">
         <label class="form-label">Estado civil</label>
         <select type="text" class="form-control" formControlName="estadoCivil">
           <option *ngFor="let item of estadoCivil" [value]="item.valor">

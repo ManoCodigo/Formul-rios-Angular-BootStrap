@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DropdownService } from 'src/app/service/dropdown.service';
 import { ConsultaCepService } from 'src/app/service/consulta-cep.service';
+import { FormValidations } from 'src/app/shared/formValidadtors';
 
 @Component({
   selector: 'app-cadastro-contato',
@@ -36,10 +37,10 @@ export class CadastroContatoComponent implements OnInit {
     this.cadastroContato = this.builder.group({
       nome: [null, Validators.required],
       telefone: [null, Validators.required],
-      email: [null, Validators.required],
-      confirmarEmail: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      confirmarEmail: [null, FormValidations.equalsTo('email')],
       dataNasc: [null, Validators.required],
-      cpf: [null, Validators.required],
+      cpf: [null, [Validators.required, FormValidations.validaCPF()]],
       estadoCivil: [null, Validators.required],
       endereco: this.builder.group({
         cep: [null, Validators.required],
@@ -64,10 +65,12 @@ export class CadastroContatoComponent implements OnInit {
 
   onConsultaCEP() {
     const cep = this.cadastroContato.get('endereco.cep')?.value
-
-    this.consultaCepService.consultaCEP(cep)?.subscribe(
-      dados => this.onPopulaCEP(dados)
-    )
+    this.onResetaEndereco()
+    if (cep != null && cep !== '') {
+      this.consultaCepService.consultaCEP(cep)?.subscribe(
+        (dados: any) => this.onPopulaCEP(dados)
+      )
+    }
   }
 
   onPopulaCEP(dados: any) {
@@ -90,4 +93,18 @@ export class CadastroContatoComponent implements OnInit {
   onResetForm() {
     this.cadastroContato.reset()
   }
+
+  onResetaEndereco() {
+    this.cadastroContato.patchValue({
+      endereco: {
+        numero: null,
+        complemento: null,
+        rua: null,
+        bairro: null,
+        cidade: null,
+        estado: null,
+      }
+    })
+  }
+
 }
